@@ -7,7 +7,6 @@ import Link from 'app/components/links/link';
 import {PanelItem} from 'app/components/panels';
 import Placeholder from 'app/components/placeholder';
 import ProgressBar from 'app/components/progressBar';
-import TextOverflow from 'app/components/textOverflow';
 import Tooltip from 'app/components/tooltip';
 import {t} from 'app/locale';
 import overflowEllipsis from 'app/styles/overflowEllipsis';
