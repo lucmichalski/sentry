@@ -684,8 +684,22 @@ class JiraIntegration(IntegrationInstallation, IssueSyncMixin):
         return fields
 
     def create_issue(self, data, **kwargs):
+        """
+        Data is a RuleBase.
+
+        :param data: object
+
+        :param kwargs:
+        :return:
+        """
         client = self.get_client()
         cleaned_data = {}
+
+        # TODO MARCOS FIRST
+        print("-4----------------------------")
+        print("data", data)
+        print("-4----------------------------")
+
         # protect against mis-configured integration submitting a form without an
         # issuetype assigned.
         if not data.get("issuetype"):
@@ -768,6 +782,10 @@ class JiraIntegration(IntegrationInstallation, IssueSyncMixin):
             cleaned_data["issuetype"] = {"id": cleaned_data["issuetype"]}
 
         try:
+            print("-5------------------------")
+            print("cleaned_data", cleaned_data)
+            print("-5------------------------")
+
             response = client.create_issue(cleaned_data)
         except Exception as e:
             self.raise_error(e)

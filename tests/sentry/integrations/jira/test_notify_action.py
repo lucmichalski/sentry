@@ -76,6 +76,8 @@ class JiraCreateTicketActionTest(RuleTestCase):
         # Trigger rule callback
         results[0].callback(event, futures=[])
         data = json.loads(responses.calls[2].response.text)
+
+        # Make assertions about what would be sent.
         assert data["title"] == "example summary"
         assert data["description"] == "example bug report"
 

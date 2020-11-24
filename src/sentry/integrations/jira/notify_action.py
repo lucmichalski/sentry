@@ -117,6 +117,14 @@ class JiraCreateTicketAction(TicketEventAction):
 
     @transaction_start("JiraCreateTicketAction.after")
     def after(self, event, state):
+        print("-1----------------------------")
+        print("self.data", self.data)
+        print("-1----------------------------")
+
+        print("-2----------------------------")
+        print("event", event)
+        print("-2----------------------------")
+
         organization = self.project.organization
         integration = self.get_integration()
         installation = integration.get_installation(organization.id)
@@ -127,6 +135,10 @@ class JiraCreateTicketAction(TicketEventAction):
         def create_issue(event, futures):
             """Create the Jira ticket for a given event"""
 
+            print("-3----------------------------")
+            print("data", self.data)
+            print("-3----------------------------")
+
             # HACK to get fixVersion in the correct format
             if self.data.get("fixVersions"):
                 if not isinstance(self.data["fixVersions"], list):
@@ -136,6 +148,10 @@ class JiraCreateTicketAction(TicketEventAction):
                 del self.data["dynamic_form_fields"]
 
             if not self.has_linked_issue(event, integration):
+                temp = {}
+                temp.update(self.data)
+                temp.update(self.data["actions"])
+
                 resp = installation.create_issue(self.data)
                 self.create_link(resp["key"], integration, installation, event)
             else:

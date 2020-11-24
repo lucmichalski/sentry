@@ -58,6 +58,7 @@ class RuleBase(object):
         self.project = project
         self.data = data or {}
         self.had_data = data is not None
+        # TODO MARCOS this is the rule model
         self.rule = rule
 
     def is_enabled(self):
