@@ -102,6 +102,7 @@ const Background = styled('div')<{type: keyof Theme['tag']}>`
   height: ${TAG_HEIGHT};
   border-radius: ${TAG_HEIGHT};
   background-color: ${p => p.theme.tag[p.type].background};
+  color: ${p => p.theme.tag[p.type].textColor};
   padding: 0 ${space(0.75)};
 `;
 
@@ -110,16 +111,12 @@ const IconWrapper = styled('span')`
 `;
 
 const Text = styled('span')`
-  color: ${p => p.theme.gray500};
-  font-size: 13px;
+  font-size: 12px;
   max-width: 150px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   line-height: ${TAG_HEIGHT};
-  a:hover & {
-    color: ${p => p.theme.gray500};
-  }
 `;
 
 const DismissButton = styled(Button)`

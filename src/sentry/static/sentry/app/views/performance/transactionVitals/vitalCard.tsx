@@ -10,7 +10,7 @@ import MarkLine from 'app/components/charts/components/markLine';
 import MarkPoint from 'app/components/charts/components/markPoint';
 import TransparentLoadingMask from 'app/components/charts/transparentLoadingMask';
 import DiscoverButton from 'app/components/discoverButton';
-import Tag from 'app/components/tagDeprecated';
+import Tag from 'app/components/tag';
 import {FIRE_SVG_PATH} from 'app/icons/iconFire';
 import {t} from 'app/locale';
 import space from 'app/styles/space';
@@ -163,9 +163,9 @@ class VitalCard extends React.Component<Props, State> {
         <CardSectionHeading>
           {`${name} (${slug.toUpperCase()})`}
           {summary === null ? null : summary < failureThreshold ? (
-            <StyledTag color={theme.purple300}>{t('pass')}</StyledTag>
+            <StyledTag type="default">{t('Pass')}</StyledTag>
           ) : (
-            <StyledTag color={theme.red300}>{t('fail')}</StyledTag>
+            <StyledTag type="critical">{t('Fail')}</StyledTag>
           )}
         </CardSectionHeading>
         <StatNumber>{this.getFormattedStatNumber()}</StatNumber>
@@ -554,15 +554,9 @@ const Indicator = styled('div')<IndicatorProps>`
   background-color: ${p => p.color};
 `;
 
-type TagProps = {
-  color: string;
-};
-
-const StyledTag = styled(Tag)<TagProps>`
+const StyledTag = styled(Tag)`
   position: absolute;
   right: ${space(3)};
-  background-color: ${p => p.color};
-  color: ${p => p.theme.white};
 `;
 
 const Container = styled('div')`

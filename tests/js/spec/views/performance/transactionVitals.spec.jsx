@@ -42,31 +42,31 @@ const vitals = [
   {
     slug: 'fp',
     heading: 'First Paint (FP)',
-    state: 'fail',
+    state: 'Fail',
     baseline: '4.57s',
   },
   {
     slug: 'fcp',
     heading: 'First Contentful Paint (FCP)',
-    state: 'pass',
+    state: 'Pass',
     baseline: '1.46s',
   },
   {
     slug: 'lcp',
     heading: 'Largest Contentful Paint (LCP)',
-    state: 'pass',
+    state: 'Pass',
     baseline: '1.34s',
   },
   {
     slug: 'fid',
     heading: 'First Input Delay (FID)',
-    state: 'fail',
+    state: 'Fail',
     baseline: '987.00ms',
   },
   {
     slug: 'cls',
     heading: 'Cumulative Layout Shift (CLS)',
-    state: 'pass',
+    state: 'Pass',
     baseline: '0.02',
   },
 ];
