@@ -50,7 +50,12 @@ class ProjectReleaseFilesEndpoint(ProjectEndpoint):
         )
 
         if query:
-            file_list = file_list.filter(Q(name__icontains=query))
+            names = query.split(",")
+            if names:
+                condition = Q(name__icontains=names[0])
+                for name in names[1:]:
+                    condition |= Q(name__icontains=name)
+                file_list = file_list.filter(condition)
 
         return self.paginate(
             request=request,
