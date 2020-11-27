@@ -99,17 +99,20 @@ const Content = ({
                     <StyledPlaceholder width="150px" />
                   ) : defined(adoption) ? (
                     <AdoptionWrapper>
-                      <StyledProgressBar
-                        tooltipText={
-                          <AdoptionTooltip
-                            totalUsers={totalUsers}
-                            totalSessions={totalSessions}
-                            totalUsers24h={totalUsers24h}
-                            totalSessions24h={totalSessions24h}
-                          />
-                        }
-                        value={Math.ceil(adoption)}
-                      />
+                      <ProgressBarWrapper>
+                        <Tooltip
+                          title={
+                            <AdoptionTooltip
+                              totalUsers={totalUsers}
+                              totalSessions={totalSessions}
+                              totalUsers24h={totalUsers24h}
+                              totalSessions24h={totalSessions24h}
+                            />
+                          }
+                        >
+                          <ProgressBar value={Math.ceil(adoption)} />
+                        </Tooltip>
+                      </ProgressBarWrapper>
                       <Count value={totalUsers24h ?? 0} />
                     </AdoptionWrapper>
                   ) : (
@@ -270,7 +273,7 @@ const StyledPlaceholder = styled(Placeholder)`
   top: ${space(0.25)};
 `;
 
-const StyledProgressBar = styled(ProgressBar)`
+const ProgressBarWrapper = styled('div')`
   min-width: 70px;
   max-width: 90px;
 `;
