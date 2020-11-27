@@ -150,6 +150,14 @@ def pytest_configure(config):
 
     initialize_app({"settings": settings, "options": None})
 
+    from sentry.plugins.base import bindings
+    from sentry.plugins.providers.dummy import DummyRepositoryProvider
+
+    bindings.add("repository.provider", DummyRepositoryProvider, id="dummy")
+    bindings.add(
+        "integration-repository.provider", ExampleRepositoryProvider, id="integrations:example"
+    )
+
     from sentry.utils.redis import clusters
 
     with clusters.get("default").all() as client:
