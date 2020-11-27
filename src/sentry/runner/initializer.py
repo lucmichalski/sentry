@@ -314,9 +314,6 @@ def initialize_app(config, skip_service_validation=False):
         settings.CSRF_COOKIE_PATH = getattr(settings, "SESSION_COOKIE_PATH", "/")
 
     settings.CACHES["default"]["VERSION"] = settings.CACHE_VERSION
-    for key in settings.CACHES:
-        if not hasattr(settings.CACHES[key], "KEY_PREFIX"):
-            settings.CACHES[key]["KEY_PREFIX"] = "v0:" if six.PY3 else ""
 
     settings.ASSET_VERSION = get_asset_version(settings)
     settings.STATIC_URL = settings.STATIC_URL.format(version=settings.ASSET_VERSION)
