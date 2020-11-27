@@ -148,9 +148,7 @@ def pytest_configure(config):
 
     from sentry.runner.initializer import initialize_app
 
-    initialize_app(
-        {"settings": settings, "options": None,}
-    )
+    initialize_app({"settings": settings, "options": None})
 
     from sentry.utils.redis import clusters
 
