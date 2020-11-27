@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 from django.core.urlresolvers import reverse
-from django.core.cache import cache
+from sentry.cache import default_cache as cache
 
 from sentry.testutils import PermissionTestCase
 from sentry.api.endpoints.setup_wizard import SETUP_WIZARD_CACHE_KEY
