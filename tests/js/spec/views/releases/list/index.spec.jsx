@@ -131,7 +131,7 @@ describe('ReleasesList', function () {
     expect(endpointMock).toHaveBeenCalledWith(
       '/organizations/org-slug/releases/',
       expect.objectContaining({
-        query: expect.objectContaining({sort: 'crash_free_sessions'}),
+        query: expect.objectContaining({display: 'crash_free_sessions'}),
       })
     );
 
@@ -146,7 +146,7 @@ describe('ReleasesList', function () {
 
     expect(router.push).toHaveBeenCalledWith({
       query: expect.objectContaining({
-        sort: 'crash_free_users',
+        display: 'crash_free_users',
       }),
     });
   });

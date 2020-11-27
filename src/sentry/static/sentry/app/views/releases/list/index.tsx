@@ -61,7 +61,7 @@ class ReleasesList extends AsyncView<Props, State> {
         'environment',
         'cursor',
         'query',
-        'sort',
+        'display',
         'healthStatsPeriod',
         'healthStat',
       ]),
@@ -117,9 +117,9 @@ class ReleasesList extends AsyncView<Props, State> {
   }
 
   getDisplay(): DisplayOption {
-    const {sort} = this.props.location.query;
+    const {display} = this.props.location.query;
 
-    switch (sort) {
+    switch (display) {
       case DisplayOption.CRASH_FREE_USERS:
         return DisplayOption.CRASH_FREE_USERS;
       default:
@@ -147,12 +147,12 @@ class ReleasesList extends AsyncView<Props, State> {
     });
   };
 
-  handleSort = (sort: string) => {
+  handleDisplay = (display: string) => {
     const {location, router} = this.props;
 
     router.push({
       ...location,
-      query: {...location.query, cursor: undefined, sort},
+      query: {...location.query, cursor: undefined, display},
     });
   };
 
@@ -264,7 +264,7 @@ class ReleasesList extends AsyncView<Props, State> {
                 />
                 <ReleaseListDisplayOptions
                   selected={activeDisplay}
-                  onSelect={this.handleSort}
+                  onSelect={this.handleDisplay}
                 />
               </SortAndFilterWrapper>
             </StyledPageHeader>
