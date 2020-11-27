@@ -248,7 +248,7 @@ class GroupDetailsTest(APITestCase, SnubaTestCase):
 
         url = u"/api/0/issues/{}/".format(group.id)
         response = self.client.get(url, format="json")
-        print(response.data["annotations"])
+
         assert response.data["annotations"] == [
             u'<a href="https://trello.com/c/134">Trello-134</a>'
         ]
