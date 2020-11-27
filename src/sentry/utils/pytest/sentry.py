@@ -149,14 +149,7 @@ def pytest_configure(config):
     from sentry.runner.initializer import initialize_app
 
     initialize_app({"settings": settings, "options": None})
-
-    from sentry.plugins.base import bindings
-    from sentry.plugins.providers.dummy import DummyRepositoryProvider
-
-    bindings.add("repository.provider", DummyRepositoryProvider, id="dummy")
-    bindings.add(
-        "integration-repository.provider", ExampleRepositoryProvider, id="integrations:example"
-    )
+    register_extensions()
 
     from sentry.utils.redis import clusters
 
@@ -170,6 +163,57 @@ def pytest_configure(config):
     from sentry import http
 
     http.DISALLOWED_IPS = set()
+
+
+def register_extensions():
+    from sentry.plugins.base import plugins
+    from sentry.plugins.utils import TestIssuePlugin2
+
+    plugins.register(TestIssuePlugin2)
+
+    from sentry import integrations
+    from sentry.integrations.bitbucket import BitbucketIntegrationProvider
+    from sentry.integrations.bitbucket_server import BitbucketServerIntegrationProvider
+    from sentry.integrations.example import (
+        ExampleIntegrationProvider,
+        AliasedIntegrationProvider,
+        ExampleRepositoryProvider,
+        ServerExampleProvider,
+        FeatureFlagIntegration,
+    )
+    from sentry.integrations.github import GitHubIntegrationProvider
+    from sentry.integrations.github_enterprise import GitHubEnterpriseIntegrationProvider
+    from sentry.integrations.gitlab import GitlabIntegrationProvider
+    from sentry.integrations.jira import JiraIntegrationProvider
+    from sentry.integrations.jira_server import JiraServerIntegrationProvider
+    from sentry.integrations.slack import SlackIntegrationProvider
+    from sentry.integrations.vsts import VstsIntegrationProvider
+    from sentry.integrations.vsts_extension import VstsExtensionIntegrationProvider
+    from sentry.integrations.pagerduty.integration import PagerDutyIntegrationProvider
+
+    integrations.register(BitbucketIntegrationProvider)
+    integrations.register(BitbucketServerIntegrationProvider)
+    integrations.register(ExampleIntegrationProvider)
+    integrations.register(AliasedIntegrationProvider)
+    integrations.register(ServerExampleProvider)
+    integrations.register(FeatureFlagIntegration)
+    integrations.register(GitHubIntegrationProvider)
+    integrations.register(GitHubEnterpriseIntegrationProvider)
+    integrations.register(GitlabIntegrationProvider)
+    integrations.register(JiraIntegrationProvider)
+    integrations.register(JiraServerIntegrationProvider)
+    integrations.register(SlackIntegrationProvider)
+    integrations.register(VstsIntegrationProvider)
+    integrations.register(VstsExtensionIntegrationProvider)
+    integrations.register(PagerDutyIntegrationProvider)
+
+    from sentry.plugins.base import bindings
+    from sentry.plugins.providers.dummy import DummyRepositoryProvider
+
+    bindings.add("repository.provider", DummyRepositoryProvider, id="dummy")
+    bindings.add(
+        "integration-repository.provider", ExampleRepositoryProvider, id="integrations:example"
+    )
 
 
 def pytest_runtest_teardown(item):
