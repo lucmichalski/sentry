@@ -146,6 +146,10 @@ def pytest_configure(config):
         # This is a hack to force django to sync the database state from the models rather than use migrations.
         settings.MIGRATION_MODULES["sentry"] = None
 
+    asset_version_patcher = mock.patch(
+        "sentry.runner.initializer.get_asset_version", return_value="{version}"
+    )
+    asset_version_patcher.start()
     from sentry.runner.initializer import initialize_app
 
     initialize_app({"settings": settings, "options": None})
