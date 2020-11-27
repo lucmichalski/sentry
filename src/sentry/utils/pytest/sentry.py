@@ -96,6 +96,7 @@ def pytest_configure(config):
 
     settings.DISABLE_RAVEN = True
 
+    settings.CACHE_VERSION = 2 if six.PY3 else 1
     settings.CACHES = {
         "default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"},
         "nodedata": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"},
