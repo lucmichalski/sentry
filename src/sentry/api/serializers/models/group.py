@@ -361,7 +361,9 @@ class GroupSerializerBase(Serializer):
             for plugin in plugins.for_project(project=item.project, version=1):
                 safe_execute(plugin.tags, None, item, annotations, _with_transaction=False)
             for plugin in plugins.for_project(project=item.project, version=2):
-                safe_execute(plugin.get_annotations, group=item, _with_transaction=False)
+                annotations.extend(
+                    safe_execute(plugin.get_annotations, group=item, _with_transaction=False) or ()
+                )
 
             resolution_actor = None
             resolution_type = None
