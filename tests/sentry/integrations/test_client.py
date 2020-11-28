@@ -48,9 +48,10 @@ class ApiClientTest(TestCase):
         resp = ApiClient().patch("http://example.com")
         assert resp.status_code == 200
 
+    @mock.patch("sentry.shared_integrations.client.cache.set")
     @mock.patch("sentry.shared_integrations.client.cache.get")
     @responses.activate
-    def test_cache_mocked(self, cache_get):
+    def test_cache_mocked(self, cache_get, cache_set):
         cache_get.return_value = None
         responses.add(responses.GET, "http://example.com", json={"key": "value1"})
         resp = ApiClient().get_cached("http://example.com")
