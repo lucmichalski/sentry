@@ -48,8 +48,7 @@ class ApiClientTest(TestCase):
         resp = ApiClient().patch("http://example.com")
         assert resp.status_code == 200
 
-    @mock.patch("django.core.cache.cache.set")
-    @mock.patch("django.core.cache.cache.get")
+    @mock.patch("sentry.shared_integrations.client.cache.get")
     @responses.activate
     def test_cache_mocked(self, cache_get, cache_set):
         cache_get.return_value = None
