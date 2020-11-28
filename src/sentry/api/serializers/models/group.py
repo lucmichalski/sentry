@@ -359,7 +359,9 @@ class GroupSerializerBase(Serializer):
             # note that the model GroupMeta where all the information is stored is already cached at the top of this function
             # so these for loops doesn't make a bunch of queries
             for plugin in plugins.for_project(project=item.project, version=1):
-                safe_execute(plugin.tags, None, item, annotations, _with_transaction=False)
+                annotations = safe_execute(
+                    plugin.tags, None, item, annotations, _with_transaction=False
+                )
             for plugin in plugins.for_project(project=item.project, version=2):
                 annotations.extend(
                     safe_execute(plugin.get_annotations, group=item, _with_transaction=False) or ()

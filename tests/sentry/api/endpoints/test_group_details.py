@@ -238,12 +238,11 @@ class GroupDetailsTest(APITestCase, SnubaTestCase):
 
     def test_plugin_external_issue_annotation(self):
         group = self.create_group()
+        GroupMeta.objects.create(group=group, key="trello:tid", value="134")
 
         plugins.get("trello").enable(group.project)
         plugins.get("trello").set_option("key", "some_value", group.project)
         plugins.get("trello").set_option("token", "another_value", group.project)
-
-        GroupMeta.objects.create(group=group, key="trello:tid", value="134")
 
         self.login_as(user=self.user)
 
