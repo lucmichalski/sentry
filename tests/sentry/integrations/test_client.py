@@ -50,7 +50,7 @@ class ApiClientTest(TestCase):
 
     @mock.patch("sentry.shared_integrations.client.cache.get")
     @responses.activate
-    def test_cache_mocked(self, cache_get, cache_set):
+    def test_cache_mocked(self, cache_get):
         cache_get.return_value = None
         responses.add(responses.GET, "http://example.com", json={"key": "value1"})
         resp = ApiClient().get_cached("http://example.com")
